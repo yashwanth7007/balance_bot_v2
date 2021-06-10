@@ -1,0 +1,6 @@
+{
+    "sketch": "UDP_server.ino",
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:mega",
+    "port": "COM3"
+}
