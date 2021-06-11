@@ -1,22 +1,21 @@
 #include<Arduino.h>
 #include<NodeMCU.h>
+#include<MPU.h>
 
-void setup() {
+MPU Obj = MPU();  
+
+void setup() 
+{
 
   // initialize both serial ports:
 
   Serial.begin(9600);
-
   Serial1.begin(115200);
 
-  
 }
 
-void loop() {
-
-if(Serial1.available()>0)
+void loop() 
 {
-  Serial.println(Serial1.available());
-  Serial.println(Serial1.readString());
-}
+  Serial.println("code running");
+  Obj.read();  
 }
