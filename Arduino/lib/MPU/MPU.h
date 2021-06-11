@@ -6,7 +6,7 @@
 
 #define MPU_address 0x68
 
-class MPU
+ class MPU
 {
 private:
     /*raw data */
@@ -51,7 +51,6 @@ public:
     void MPU6050_Init();
     void Read_RawValue();
     void I2C_Write( uint8_t regAddress, uint8_t data);
-    uint8_t I2C_Read( uint8_t regAddress, uint8_t nTotal = 1,uint8_t * bytes = NULL);
     void read();
     float calculateTheta();
     ~MPU();

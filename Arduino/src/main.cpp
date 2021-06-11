@@ -1,8 +1,7 @@
 #include<Arduino.h>
 #include<NodeMCU.h>
 #include<MPU.h>
-
-MPU Obj = MPU();  
+MPU obj;
 
 void setup() 
 {
@@ -10,12 +9,16 @@ void setup()
   // initialize both serial ports:
 
   Serial.begin(9600);
-  Serial1.begin(115200);
+  Serial.println("started");
+  //Serial1.begin(115200);
+  obj.MPU6050_Init();
 
 }
 
 void loop() 
 {
-  Serial.println("code running");
-  Obj.read();  
+
+  //Serial.println("code running");
+  obj.read();
+  
 }
