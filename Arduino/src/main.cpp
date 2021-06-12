@@ -20,5 +20,7 @@ void loop()
 {
 
   //Serial.println("code running");
-  read();  
+  MPU_read();
+  Serial.println(Theta);
+
 }
