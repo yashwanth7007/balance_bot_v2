@@ -2,14 +2,11 @@
 #include <Wire.h>
 
 
-#define MPU_address 0x68
+#define MPU_address (0x68)
 
 extern double  Theta;
 
-
-
-
-//Methods
+/*Methods*/
 
 void MPU6050_Init();
 void Read_RawValue();

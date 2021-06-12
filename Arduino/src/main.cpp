@@ -1,7 +1,8 @@
 #include<Arduino.h>
 #include<NodeMCU.h>
 #include<MPU.h>
-//MPU obj;
+#include<Motors.h>
+
 
 void setup() 
 {
@@ -12,6 +13,7 @@ void setup()
   Serial.println("started");
   //Serial1.begin(115200);
   //obj.MPU6050_Init();
+  Motor_Init();
   MPU6050_Init();
 
 }
