@@ -1,7 +1,6 @@
 #include "MPU.h"
 
 
-#define MPU_address 0x68
 /*raw data */
 int16_t ax, ay, az;//acerlometer readings
 int16_t gx, gy, gz;//gyroscope readings
@@ -10,8 +9,16 @@ int16_t gx, gy, gz;//gyroscope readings
 double axs, ays, azs;            
 double gxs, gys, gzs;
 
-double Theta, ThetaAccerlometer;
+double  Theta;
+double  ThetaAccerlometer, ThetaGyro;
 
+//Complimentary filter Ratio
+
+const double alpha = 0.02;
+
+//reading of millis for time interval calcuation
+
+unsigned long nLastTime = 0, nCurrenttime;
 
 
 // Select SDA and SCL pins for I2C communication 
@@ -66,7 +73,7 @@ void MPU6050_Init()
     Wire.write(0x6B);                                   // Talk to the register 6B
     Wire.write(0x00);                                  // Make reset - place a 0 into the 6B register
     Wire.endTransmission(true);
-    Serial.println ("Initialized");
+    //Serial.println ("Initialized");
 
     I2C_Write(MPU6050_REGISTER_SMPLRT_DIV, 0x07);
     I2C_Write(MPU6050_REGISTER_PWR_MGMT_1, 0x01);
@@ -88,7 +95,7 @@ void I2C_Write( uint8_t regAddress, uint8_t data)
   Wire.endTransmission();    
 }
 
-void read()
+void MPU_read()
 {
     
     Read_RawValue();
@@ -101,7 +108,18 @@ void read()
     gxs = (double)gx / GyroScaleFactor;
     gys = (double)gy / GyroScaleFactor;
     gzs = (double)gz / GyroScaleFactor;
+    
+    /*time interval*/
+    nCurrenttime = millis();
 
+    /*Complimentary Filter*/
+    ThetaAccerlometer = (180) *atan(axs/abs(azs))/PI;
+    //ThetaGyro += ((gys * (nCurrenttime - nLastTime))/1000 );
+    Theta = (1- alpha) * (Theta + ((gys * (nCurrenttime - nLastTime))/1000 ) ) + (alpha * ThetaAccerlometer);
+
+    nLastTime = nCurrenttime;
+
+    /*For Debug purpose*/
     // Serial.print(" Axs: "); Serial.print(axs);
     // Serial.print(" Ays: "); Serial.print(ays);
     // Serial.print(" Azs: "); Serial.print(azs);
@@ -109,8 +127,11 @@ void read()
     // Serial.print(" Gxs: "); Serial.print(gxs);
     // Serial.print(" Gys: "); Serial.print(gys);
     // Serial.print(" Gzs: "); Serial.println(gzs);
-    Serial.println(millis());
-    Serial.println(millis());        
+    // Serial.print(ThetaGyro); Serial.print(" ");
+    // Serial.print(ThetaAccerlometer); Serial.print(" ");
+    // Serial.println(Theta);
+    // Serial.println(millis());
+    // Serial.println(millis());        
 }
 
 
