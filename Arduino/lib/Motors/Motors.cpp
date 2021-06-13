@@ -1,9 +1,14 @@
 #include "Motors.h" 
 
 /*Keeps the count of rotation*/
-volatile int R_phi,L_phi;
+volatile int    R_phi,         L_phi;
+volatile int    R_phi_prev=0,  L_phi_prev=0;
+volatile float  R_phi_dot,     L_phi_dot;
 
-volatile int Phi, Phi_Dot;
+volatile float Phi;
+volatile float Phi_Dot;
+
+volatile float rotation_left, rotation_right;
 
 
 
@@ -108,19 +113,19 @@ void Left_stop()
 
 void update_motors(float PID_output, float left_offset, float right_offset)
 {
-	int16_t left_PWM=0, right_PWM=0;
+	int left_PWM=0, right_PWM=0;
   
 	
 	// Add rotation offsets and constrain the output
-	left_PWM = (int16_t) constrain(PID_output + left_offset, -255, 255);
-	right_PWM = (int16_t) constrain(PID_output + right_offset, -255, 255);
+	left_PWM = (int) constrain(PID_output + left_offset, -255, 255);
+	right_PWM = (int) constrain(PID_output + right_offset, -255, 255);
 	
 	// Drive the motors
 	drive_left(left_PWM);
 	drive_right(right_PWM);
 }
 
-void drive_left(int16_t left_PWM)
+void drive_left(int left_PWM)
 {
   if(left_PWM == 0)
   {
@@ -136,7 +141,7 @@ void drive_left(int16_t left_PWM)
   }  
 }
 
-void drive_right(int16_t right_PWM)
+void drive_right(int right_PWM)
 {
   if(right_PWM == 0)
   {
@@ -150,4 +155,18 @@ void drive_right(int16_t right_PWM)
   {
     Right_backward(-right_PWM);
   }  
+}
+
+
+void motor_state_update()
+{
+  Phi = (R_phi + L_phi)/2.0;
+
+  R_phi_dot  = (float)(R_phi - R_phi_prev);
+  L_phi_dot  = (float)(L_phi - L_phi_prev);
+
+  Phi_Dot    = (R_phi_dot + L_phi_dot)/2.0 ;  
+
+  R_phi_prev = R_phi;
+  L_phi_prev = L_phi;
 }

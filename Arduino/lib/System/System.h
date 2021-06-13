@@ -8,6 +8,7 @@ extern PID ThetaPid;
 extern PID PhiPid;
 extern PID PhiDotPid;
 
+extern SystemBot BalanceBot;
 
 void Update_Setpoints();
 void compute_PIDs();

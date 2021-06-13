@@ -4,13 +4,13 @@
 #ifndef MOTORS_H_
 #define MOTORS_H_
 
-#define InR1                        (32)                   // motor pin
-#define PWMR                        (6)                     // PWM motor pin                                                                                                                 
+#define InR1                        (32)                    // motor pin
+#define PWMR                        (6)                     // PWM motor pin channel A of timer4                                                                                                              
 #define InR2                        (34)                    // motor pin  
 
 
 #define InL1                        (28)                    // motor pin
-#define PWML                        (5)                     // PWM motor pin
+#define PWML                        (7)                     // PWM motor pin channel B of timer4
 #define InL2                        (30)                    // motor pin
 
 
@@ -27,8 +27,10 @@
 #define RIGHT_BACKWARD_PWM_MIN      (42)
 
 extern volatile int R_phi,L_phi;
-extern volatile int Phi;
-extern volatile int Phi_Dot;
+extern volatile float Phi;
+extern volatile float Phi_Dot;
+
+extern volatile float rotation_left, rotation_right;
 
 
 
@@ -71,9 +73,12 @@ void Left_backward(int pwm);
 
 void update_motors(float PID_output, float left_offset, float right_offset);
 
-void drive_left(int16_t left_PWM);
+void drive_left(int left_PWM);
 
-void drive_right(int16_t right_PWM);
+void drive_right(int right_PWM);
+
+
+
 
 #endif
 
@@ -88,19 +93,19 @@ void drive_right(int16_t right_PWM);
 // Pin 46, 45 and 44:: controlled by timer 5
 
 
-// timer	bits	channel	Arduino pin	Mega pin
-// timer0	8	    A	        6	    13
-// timer0	8	    B	        5	    4
-// timer1	16	    A	        9	    11
-// timer1	16	    B	        10  	12
-// timer2	8	    A	        11  	10
-// timer2	8	    B	        3	    9
-// timer3	16  	A	        -	    5
-// timer3	16	    B	        -	    2
-// timer3	16	    C	        -	    3
-// timer4	16  	A	        -	    6
-// timer4	16  	B       	-	    7
-// timer4	16	    C	        -	    8
-// timer5	16	    A	        -	    44
-// timer5	16	    B	        -	    45
-// timer5	16	    C	        -	    46
+// timer	bits	channel	Arduino pin 	Mega pin
+// timer0	8	    A	        6	        13
+// timer0	8	    B	        5	        4
+// timer1	16	    A	        9	        11
+// timer1	16	    B	        10  	    12
+// timer2	8	    A	        11  	    10
+// timer2	8	    B	        3	        9
+// timer3	16  	A	        -	        5
+// timer3	16	    B	        -	        2
+// timer3	16	    C	        -	        3
+// timer4	16  	A	        -	        6
+// timer4	16  	B       	-	        7
+// timer4	16	    C	        -	        8
+// timer5	16	    A	        -	        44
+// timer5	16	    B	        -	        45
+// timer5	16	    C	        -	        46

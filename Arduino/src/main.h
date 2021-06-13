@@ -13,3 +13,7 @@ void initialize();
 
 
 void Schedule();
+
+void System_Hook_States();
+
+void compute_SteerPid();

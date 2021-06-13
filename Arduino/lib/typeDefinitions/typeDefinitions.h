@@ -12,18 +12,18 @@ enum Direction
     Hold
 };
 
-enum State
-{
-    FastMoving,
-    SlowMoving,
-    Stop
-};
+// enum State
+// {
+//     FastMoving,
+//     SlowMoving,
+//     Stop
+// };
 
-enum Mode
-{
-    Normal,
-    powerful    
-};
+// enum Mode
+// {
+//     Normal,
+//     powerful    
+// };
 
 struct Constants
 {
@@ -43,27 +43,33 @@ struct PID
     volatile float Error = 0;
 
     //related to state
-    volatile void *CurrentValue;
-    volatile void *PrevValue;
+    volatile float *CurrentValue;
+    volatile float *PrevValue = 0;
 
-    volatile float Integral;
-    volatile float Derivative;
+    volatile float Integral = 0;
+    volatile float Derivative = 0;
 
     Constants Normal;
     Constants Power;   
 
-    /* Flags */
-
-    volatile bool RotationStateFlag;
+    
+    
 
 };
 
-struct System
+struct SystemBot
 {
     /* data */
     Direction RemoteDirection = Direction::Hold;
-    State BotState = State::Stop;
     
+
+    /* Flags */
+
+    volatile bool RotationStateFlag;
+    volatile bool StopFlag;
+    volatile bool PowerfulFlag;
+
+
     /* Methods */
     Direction           (* Read_remote)();
     void                (* update_Setpoints)();
