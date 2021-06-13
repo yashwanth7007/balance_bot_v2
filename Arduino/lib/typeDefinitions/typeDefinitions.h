@@ -41,8 +41,10 @@ struct PID
     volatile float Setpoint = 0;
     volatile float Output = 0;
     volatile float Error = 0;
-    volatile float CurrentValue = 0;
-    volatile float PrevValue = 0;
+
+    //related to state
+    volatile void *CurrentValue;
+    volatile void *PrevValue;
 
     volatile float Integral;
     volatile float Derivative;

@@ -3,6 +3,8 @@
 /*Keeps the count of rotation*/
 volatile int R_phi,L_phi;
 
+volatile int Phi, Phi_Dot;
+
 
 
 /*reading of millis for time interval calcuation*/

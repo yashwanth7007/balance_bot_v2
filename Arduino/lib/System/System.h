@@ -12,6 +12,12 @@ extern PID PhiDotPid;
 void Update_Setpoints();
 void compute_PIDs();
 
+void compute_ThetaPid();
+void compute_PhiPid();
+void compute_PhidotPid();
+void compute_SteerPid();
+
+
 
 
 

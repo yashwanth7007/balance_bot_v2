@@ -6,6 +6,7 @@
 
 #define MPU_address (0x68)
 
+extern float Theta;
 
 /*Methods*/
 

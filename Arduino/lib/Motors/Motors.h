@@ -27,6 +27,10 @@
 #define RIGHT_BACKWARD_PWM_MIN      (42)
 
 extern volatile int R_phi,L_phi;
+extern volatile int Phi;
+extern volatile int Phi_Dot;
+
+
 
 void Motor_Init();
 

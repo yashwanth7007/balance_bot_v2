@@ -31,7 +31,15 @@ void loop()
 
 void Schedule()
 {
+
   Update_Setpoints();
   compute_PIDs();
 
+}
+
+void System_Hook_States()
+{
+  ThetaPid.CurrentValue = &Theta;
+  PhiPid.CurrentValue = &Phi;
+  PhiDotPid.CurrentValue = &Phi_Dot;
 }

@@ -1,6 +1,9 @@
 #include"System.h"
 
 
+PID ThetaPid;
+PID PhiPid;
+PID PhiDotPid;
 
 
 void Set_setpoint(PID* controler)
@@ -15,6 +18,31 @@ void Update_Setpoints()
 }
 
 void compute_PIDs()
+{
+
+}
+
+void compute_ThetaPid()
+{
+
+}
+
+void compute_PhiPid()
+{
+    
+
+}
+
+
+void compute_PhidotPid()
+{
+   float x =  *((float*) ThetaPid.CurrentValue);
+   x = x-1;
+
+}
+
+
+void compute_SteerPid()
 {
 
 }
