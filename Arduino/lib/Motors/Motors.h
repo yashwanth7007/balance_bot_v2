@@ -57,6 +57,8 @@ Example Call	:	Called automatically
 ***********************************/
 void left_phi_ISR();
 
+void motor_state_update();
+
 
 
 void Right_forward(int pwm);
@@ -74,3 +76,31 @@ void drive_left(int16_t left_PWM);
 void drive_right(int16_t right_PWM);
 
 #endif
+
+
+
+// On the Arduino Mega we have 6 timers and 15 PWM outputs:
+// Pins 4 and 13: controlled by timer0
+// Pins 11 and 12: controlled by timer1
+// Pins 9 and10: controlled by timer2
+// Pin 2, 3 and 5: controlled by timer 3
+// Pin 6, 7 and 8: controlled by timer 4
+// Pin 46, 45 and 44:: controlled by timer 5
+
+
+// timer	bits	channel	Arduino pin	Mega pin
+// timer0	8	    A	        6	    13
+// timer0	8	    B	        5	    4
+// timer1	16	    A	        9	    11
+// timer1	16	    B	        10  	12
+// timer2	8	    A	        11  	10
+// timer2	8	    B	        3	    9
+// timer3	16  	A	        -	    5
+// timer3	16	    B	        -	    2
+// timer3	16	    C	        -	    3
+// timer4	16  	A	        -	    6
+// timer4	16  	B       	-	    7
+// timer4	16	    C	        -	    8
+// timer5	16	    A	        -	    44
+// timer5	16	    B	        -	    45
+// timer5	16	    C	        -	    46
