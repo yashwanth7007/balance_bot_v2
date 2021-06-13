@@ -55,6 +55,8 @@ void left_phi_ISR()
   L_phi--;
 }
 
+
+
 void Right_forward(int pwm)
 {
   pwm = map(pwm,0,255,RIGHT_FORWARD_PWM_MIN,255);
@@ -99,14 +101,17 @@ void Left_stop()
   digitalWrite(InL2,LOW);
 }
 
+
+
+
 void update_motors(float PID_output, float left_offset, float right_offset)
 {
 	int16_t left_PWM=0, right_PWM=0;
   
 	
 	// Add rotation offsets and constrain the output
-	left_PWM = (int) constrain(PID_output + left_offset, -255, 255);
-	right_PWM = (int) constrain(PID_output + right_offset, -255, 255);
+	left_PWM = (int16_t) constrain(PID_output + left_offset, -255, 255);
+	right_PWM = (int16_t) constrain(PID_output + right_offset, -255, 255);
 	
 	// Drive the motors
 	drive_left(left_PWM);

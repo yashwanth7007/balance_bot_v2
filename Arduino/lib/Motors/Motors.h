@@ -1,4 +1,8 @@
 #include <Arduino.h>
+#include <typeDefinitions.h>
+
+#ifndef MOTORS_H_
+#define MOTORS_H_
 
 #define InR1                        (32)                   // motor pin
 #define PWMR                        (6)                     // PWM motor pin                                                                                                                 
@@ -51,11 +55,6 @@ void left_phi_ISR();
 
 
 
-void drive_left(int16_t left_PWM);
-void drive_right(int16_t right_PWM);
-
-
-
 void Right_forward(int pwm);
 
 void Right_backward(int pwm);
@@ -63,3 +62,11 @@ void Right_backward(int pwm);
 void Left_forward(int pwm);
 
 void Left_backward(int pwm);
+
+void update_motors(float PID_output, float left_offset, float right_offset);
+
+void drive_left(int16_t left_PWM);
+
+void drive_right(int16_t right_PWM);
+
+#endif

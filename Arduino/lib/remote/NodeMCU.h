@@ -1,13 +1,21 @@
 #include<Arduino.h>
+#include<typeDefinitions.h>
 
- class NodeMCU
-{
-private:
-    /* data */
+
+
+
+
+
+
+
+//  class NodeMCU
+// {
+// private:
+//     /* data */
     
-public:
-    NodeMCU(/* args */);
-    int getCommand();
-    ~NodeMCU();
-    String read();
-};
+// public:
+//     NodeMCU(/* args */);
+//     int getCommand();
+//     ~NodeMCU();
+//     String read();
+// };

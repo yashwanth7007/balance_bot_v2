@@ -2,9 +2,6 @@
 
 
 
-PID Theta;
-PID Phi;
-PID PhiDot;
 
 void Set_setpoint(PID* controler)
 {
@@ -12,25 +9,33 @@ void Set_setpoint(PID* controler)
 }
 
 
+void Update_Setpoints()
+{
+
+}
+
+void compute_PIDs()
+{
+
+}
+
+
+// //Flags
+
+// bool SlowDown = false;
+// bool InMotion = false;
+
+// //Maximum values of set points
+
+// double ThetaSetPointMax;
+// double DisplacementSetpointMax;
+// double VelocitySetPointMax;
 
 
 
-//Flags
-
-bool SlowDown = false;
-bool InMotion = false;
-
-//Maximum values of set points
-
-double ThetaSetPointMax;
-double DisplacementSetpointMax;
-double VelocitySetPointMax;
-
-
-
-double ThetaSetPoint;
-double DisplacementSetPoint;
-double VelocitySetpoint;
+// double ThetaSetPoint;
+// double DisplacementSetPoint;
+// double VelocitySetpoint;
 
 
 

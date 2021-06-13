@@ -6,15 +6,15 @@ int16_t ax, ay, az;//acerlometer readings
 int16_t gx, gy, gz;//gyroscope readings
 
 /*Scaled data*/
-double axs, ays, azs;            
-double gxs, gys, gzs;
+float axs, ays, azs;            
+float gxs, gys, gzs;
 
-double  Theta;
-double  ThetaAccerlometer, ThetaGyro;
+float  Theta;
+float  ThetaAccerlometer, ThetaGyro;
 
 //Complimentary filter Ratio
 
-const double alpha = 0.02;
+const float alpha = 0.02;
 
 //reading of millis for time interval calcuation
 
@@ -95,19 +95,19 @@ void I2C_Write( uint8_t regAddress, uint8_t data)
   Wire.endTransmission();    
 }
 
-void MPU_read()
+float MPU_read()
 {
     
     Read_RawValue();
 
     // Scale the read data
-    axs = (double)ax / AccelScaleFactor;    
-    ays = (double)ay / AccelScaleFactor;    
-    azs = (double)az / AccelScaleFactor;
+    axs = (float)ax / AccelScaleFactor;    
+    ays = (float)ay / AccelScaleFactor;    
+    azs = (float)az / AccelScaleFactor;
 
-    gxs = (double)gx / GyroScaleFactor;
-    gys = (double)gy / GyroScaleFactor;
-    gzs = (double)gz / GyroScaleFactor;
+    gxs = (float)gx / GyroScaleFactor;
+    gys = (float)gy / GyroScaleFactor;
+    gzs = (float)gz / GyroScaleFactor;
     
     /*time interval*/
     nCurrenttime = millis();
@@ -118,6 +118,8 @@ void MPU_read()
     Theta = (1- alpha) * (Theta + ((gys * (nCurrenttime - nLastTime)) * 0.001 ) ) + (alpha * ThetaAccerlometer);
 
     nLastTime = nCurrenttime;
+
+    
 
     /*For Debug purpose*/
     // Serial.print(" Axs: "); Serial.print(axs);
@@ -132,6 +134,8 @@ void MPU_read()
     // Serial.println(Theta);
     // Serial.println(millis());
     // Serial.println(millis());        
+
+    return Theta;
 }
 
 
@@ -198,13 +202,13 @@ void MPU_read()
 //     Read_RawValue();
 
 //     // Scale the read data
-//     axs = (double)ax / AccelScaleFactor;    
-//     ays = (double)ay / AccelScaleFactor;    
-//     azs = (double)az / AccelScaleFactor;
+//     axs = (float)ax / AccelScaleFactor;    
+//     ays = (float)ay / AccelScaleFactor;    
+//     azs = (float)az / AccelScaleFactor;
 
-//     gxs = (double)gx / GyroScaleFactor;
-//     gys = (double)gy / GyroScaleFactor;
-//     gzs = (double)gz / GyroScaleFactor;
+//     gxs = (float)gx / GyroScaleFactor;
+//     gys = (float)gy / GyroScaleFactor;
+//     gzs = (float)gz / GyroScaleFactor;
 
 //     // Serial.print(" Axs: "); Serial.print(axs);
 //     // Serial.print(" Ays: "); Serial.print(ays);
