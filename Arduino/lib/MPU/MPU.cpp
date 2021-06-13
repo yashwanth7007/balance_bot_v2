@@ -115,7 +115,7 @@ void MPU_read()
     /*Complimentary Filter*/
     ThetaAccerlometer = (180) *atan(axs/abs(azs))/PI;
     //ThetaGyro += ((gys * (nCurrenttime - nLastTime))/1000 );
-    Theta = (1- alpha) * (Theta + ((gys * (nCurrenttime - nLastTime))/1000 ) ) + (alpha * ThetaAccerlometer);
+    Theta = (1- alpha) * (Theta + ((gys * (nCurrenttime - nLastTime)) * 0.001 ) ) + (alpha * ThetaAccerlometer);
 
     nLastTime = nCurrenttime;
 

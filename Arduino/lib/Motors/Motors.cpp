@@ -1,8 +1,11 @@
 #include "Motors.h" 
 
 /*Keeps the count of rotation*/
-int R_phi;
-int L_phi;
+volatile int R_phi,L_phi;
+
+/*reading of millis for time interval calcuation*/
+
+
 
 void Motor_Init()
 {

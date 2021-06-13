@@ -16,6 +16,8 @@
 #define left_phi_A_interrupt     (3)  
 #define left_phi_B               (38)
 
+extern volatile int R_phi,L_phi;
+
 void Motor_Init();
 
 void right_phi_ISR();
