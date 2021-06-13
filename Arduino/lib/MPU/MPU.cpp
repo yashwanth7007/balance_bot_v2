@@ -18,7 +18,7 @@ const float alpha = 0.02;
 
 //reading of millis for time interval calcuation
 
-unsigned long nLastTime = 0, nCurrenttime;
+unsigned long nMPULastTime = 0, nMPUCurrentTime;
 
 
 // Select SDA and SCL pins for I2C communication 
@@ -110,14 +110,14 @@ float MPU_read()
     gzs = (float)gz / GyroScaleFactor;
     
     /*time interval*/
-    nCurrenttime = millis();
+    nMPUCurrentTime = millis();
 
     /*Complimentary Filter*/
     ThetaAccerlometer = (180) *atan(axs/abs(azs))/PI;
-    //ThetaGyro += ((gys * (nCurrenttime - nLastTime))/1000 );
-    Theta = (1- alpha) * (Theta + ((gys * (nCurrenttime - nLastTime)) * 0.001 ) ) + (alpha * ThetaAccerlometer);
+    //ThetaGyro += ((gys * (nMPUCurrentTime - nMPULastTime))/1000 );
+    Theta = (1- alpha) * (Theta + ((gys * (nMPUCurrentTime - nMPULastTime)) * 0.001 ) ) + (alpha * ThetaAccerlometer);
 
-    nLastTime = nCurrenttime;
+    nMPULastTime = nMPUCurrentTime;
 
     
 
