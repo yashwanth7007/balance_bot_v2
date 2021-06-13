@@ -3,6 +3,8 @@
 /*Keeps the count of rotation*/
 volatile int R_phi,L_phi;
 
+
+
 /*reading of millis for time interval calcuation*/
 
 
@@ -55,28 +57,90 @@ void left_phi_ISR()
 
 void Right_forward(int pwm)
 {
- analogWrite(PWMR,pwm);
- digitalWrite(InR2,LOW);
- digitalWrite(InR1,HIGH); 
+  pwm = map(pwm,0,255,RIGHT_FORWARD_PWM_MIN,255);
+  analogWrite(PWMR, pwm);
+  digitalWrite(InR2,LOW);
+  digitalWrite(InR1,HIGH); 
 }
 
 void Right_backward(int pwm)
 {
- analogWrite(PWMR,pwm);
- digitalWrite(InR1,LOW);
- digitalWrite(InR2,HIGH);
+  pwm = map(pwm,0,255,RIGHT_BACKWARD_PWM_MIN,255);
+  analogWrite(PWMR, pwm);
+  digitalWrite(InR1,LOW);
+  digitalWrite(InR2,HIGH);
+}
+
+void Right_stop()
+{
+  digitalWrite(InR1,LOW);
+  digitalWrite(InR2,LOW);
 }
 
 void Left_forward(int pwm)
 {
- analogWrite(PWML,pwm);
- digitalWrite(InL2,LOW);
- digitalWrite(InL1,HIGH);
+  pwm = map(pwm,0,255,LEFT_FORWARD_PWM_MIN,255);
+  analogWrite(PWML,pwm);
+  digitalWrite(InL2,LOW);
+  digitalWrite(InL1,HIGH);
 }
 
 void Left_backward(int pwm)
 {
- analogWrite(PWML,pwm);
- digitalWrite(InL1,LOW);
- digitalWrite(InL2,HIGH);
+  pwm = map(pwm,0,255,LEFT_BACKWARD_PWM_MIN,255);
+  analogWrite(PWML,pwm);
+  digitalWrite(InL1,LOW);
+  digitalWrite(InL2,HIGH);
+}
+
+void Left_stop()
+{
+  digitalWrite(InL1,LOW);
+  digitalWrite(InL2,LOW);
+}
+
+void update_motors(float PID_output, float left_offset, float right_offset)
+{
+	int16_t left_PWM=0, right_PWM=0;
+  
+	
+	// Add rotation offsets and constrain the output
+	left_PWM = (int) constrain(PID_output + left_offset, -255, 255);
+	right_PWM = (int) constrain(PID_output + right_offset, -255, 255);
+	
+	// Drive the motors
+	drive_left(left_PWM);
+	drive_right(right_PWM);
+}
+
+void drive_left(int16_t left_PWM)
+{
+  if(left_PWM == 0)
+  {
+    Left_stop();
+  }
+  else if (left_PWM>0)
+  {
+    Left_forward(left_PWM);
+  }
+  else
+  {
+    Left_backward(-left_PWM);
+  }  
+}
+
+void drive_right(int16_t right_PWM)
+{
+  if(right_PWM == 0)
+  {
+    Right_stop();
+  }
+  else if (right_PWM>0)
+  {
+    Right_forward(right_PWM);
+  }
+  else
+  {
+    Right_backward(-right_PWM);
+  }  
 }
